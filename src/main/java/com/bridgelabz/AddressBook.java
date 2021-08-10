@@ -9,7 +9,7 @@ public class AddressBook {
 
     /* this method is used to display welcom message
      */
-    public void message(){
+    public void message() {
         System.out.println("Welcome to Address book");
     }
 
@@ -25,7 +25,7 @@ public class AddressBook {
 
     /*This method is used to return Arraylist of contacts
      */
-    public ArrayList<Contact> getContactlist(){
+    public ArrayList<Contact> getContactlist() {
         return contactlist;
     }
 
