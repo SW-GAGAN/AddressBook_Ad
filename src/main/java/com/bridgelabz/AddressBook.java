@@ -10,7 +10,7 @@ public class AddressBook {
 
     /* this method is used to display welcom message
      */
-    public void message(){
+    public void message() {
         System.out.println("Welcome to Address book");
     }
 
@@ -43,43 +43,44 @@ public class AddressBook {
 
     /*This method is used to return Arraylist of contacts
      */
-    public ArrayList<Contact> getContactlist(){
+    public ArrayList<Contact> getContactlist() {
         return contactlist;
     }
 
     public static void main(String[] args) {
-        AddressBook addressBook=new AddressBook();
+        AddressBook addressBook = new AddressBook();
         addressBook.updateMainMethod();
     }
-    public void updateMainMethod(){
-        AddressBook addressBook=new AddressBook();
+
+    public void updateMainMethod() {
+        AddressBook addressBook = new AddressBook();
         // addressBook.addNewContactFromConsole();
         // addressBook=new AddressBook();
-        Contact contact= new Contact("Manu","Kv","Bengaluru","Karnataka",560076
-                ,966339366,"manukvshetty@gmail.com");
-        Contact contact1=new Contact("Srinivas","Kv","Bengaluru","Karnataka",560076
-                ,526157122,"srinivas@gmail.com");
+        Contact contact = new Contact("Manu", "Kv", "Bengaluru", "Karnataka", 560076
+                , 966339366, "manukvshetty@gmail.com");
+        Contact contact1 = new Contact("Srinivas", "Kv", "Bengaluru", "Karnataka", 560076
+                , 526157122, "srinivas@gmail.com");
         addressBook.addNewContact(contact);
         addressBook.addNewContact(contact1);
-        Scanner consoleInputReader=new Scanner(System.in);
+        Scanner consoleInputReader = new Scanner(System.in);
         System.out.println("Enter the FirstName of the contact to edit");
-        String firstName=consoleInputReader.next();
+        String firstName = consoleInputReader.next();
         System.out.println("Enter the LastName of the contact to edit");
-        String lastName=consoleInputReader.next();
-        Contact oldContact=addressBook.getContact(firstName,lastName);
-        if(oldContact==null) {
+        String lastName = consoleInputReader.next();
+        Contact oldContact = addressBook.getContact(firstName, lastName);
+        if (oldContact == null) {
             System.out.println("contact doesn't exist");
             return;
         }
-        Contact newContact =new Contact(consoleInputReader);
-        addressBook.updateContact(oldContact,newContact);
+        Contact newContact = new Contact(consoleInputReader);
+        addressBook.updateContact(oldContact, newContact);
     }
 
     /*This method is used to take input form console and add new contact to AddressBook
     @return boolen value
      */
-    public static boolean addNewContactFromConsole(){
-        Scanner consoleInputReader=new Scanner(System.in);
+    public static boolean addNewContactFromConsole() {
+        Scanner consoleInputReader = new Scanner(System.in);
         contactlist.add(new Contact(consoleInputReader));
         return true;
     }
@@ -99,9 +100,7 @@ public class AddressBook {
                         return true;
                     }
                 }
-            }
-            else
-            {
+            } else {
                 System.out.println("name not available to edit");
                 return false;
             }
@@ -115,7 +114,7 @@ public class AddressBook {
     @return boolean value true if present else false
      */
     public boolean checkContactExists(Contact contact) {
-        if (contactlist.size() > 0 && contact!=null) {
+        if (contactlist.size() > 0 && contact != null) {
             int i = 0;
             while (i < contactlist.size()) {
                 Contact contactPresent = contactlist.get(i);
@@ -149,7 +148,7 @@ public class AddressBook {
             int i = 0;
             while (i < contactlist.size()) {
                 Contact contactPresent = contactlist.get(i);
-                if ((firstName+lastName).equals(contactPresent.firstName+contactPresent.lastName)) {
+                if ((firstName + lastName).equals(contactPresent.firstName + contactPresent.lastName)) {
                     System.out.println("Contact Exists");
                     return contactPresent;
                 }
@@ -168,6 +167,26 @@ public class AddressBook {
         return contactlist.stream().filter(contact -> contact.equals(newContact))
                 .findAny()
                 .orElse(null);
+    }
+
+    /* This method is used to delete the contact,only  if exists in the contact book
+    @param takes FirstName and LastName
+    @return true if contact deleted else false
+     */
+    public boolean deleteContact(String firstName, String lastName) {
+        if (contactlist.size() > 0) {
+            int i = 0;
+            while (i < contactlist.size()) {
+                Contact contactPresent = contactlist.get(i);
+                if ((firstName + lastName).equals(contactPresent.firstName + contactPresent.lastName)) {
+                    contactlist.remove(i);
+                    return true;
+                }
+                i++;
+            }
+            return false;
+        }
+        return false;
     }
 
 }
