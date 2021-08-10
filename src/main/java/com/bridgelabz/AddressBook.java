@@ -2,6 +2,7 @@ package com.bridgelabz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class AddressBook {
 
@@ -9,7 +10,7 @@ public class AddressBook {
 
     /* this method is used to display welcom message
      */
-    public void message() {
+    public void message(){
         System.out.println("Welcome to Address book");
     }
 
@@ -25,8 +26,21 @@ public class AddressBook {
 
     /*This method is used to return Arraylist of contacts
      */
-    public ArrayList<Contact> getContactlist() {
+    public ArrayList<Contact> getContactlist(){
         return contactlist;
     }
 
+    public static void main(String[] args) {
+        AddressBook addressBook=new AddressBook();
+        addressBook.addNewContactFromConsole();
+    }
+
+    /*This method is used to take input form console and add new contact to AddressBook
+    @return boolen value
+     */
+    public boolean addNewContactFromConsole(){
+        Scanner consoleInputReader=new Scanner(System.in);
+        contactlist.add(new Contact(consoleInputReader));
+        return true;
+    }
 }
