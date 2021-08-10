@@ -1,7 +1,6 @@
 package com.bridgelabz;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -10,77 +9,66 @@ public class AddressBook {
 
     /* this method is used to display welcom message
      */
-    public void message() {
+    public void message(){
         System.out.println("Welcome to Address book");
     }
 
     /* This method is used to add the contact, if already exists in the contact book
-   not adding else adding
-   @param takes contact input
-   @return boolean value true if added else false
+    not adding else adding
+    @param takes contact input
+    @return boolean value true if added else false
     */
     public boolean addNewContact(Contact contact) {
         int bit_add = 0;
         if (contactlist.size() > 0) {
-            int i = 0;
-            while (i < contactlist.size() && bit_add == 0) {
-                Contact contactPresent = contactlist.get(i);
-                if (contact.equals(contactPresent)) {
-                    bit_add = 1;
-                    System.out.println("name available Present duplicate not allowed");
-                    return false;
-                }
-                i++;
-            }
-            if (bit_add == 0) {
-                contactlist.add(contact);
-                return true;
-            }
+            boolean checkExists=this.checkContactExists(contact);
+            if(checkExists==true)
+                return false;
         }
         contactlist.add(contact);
         return true;
+
     }
 
     /*This method is used to return Arraylist of contacts
      */
-    public ArrayList<Contact> getContactlist() {
+    public ArrayList<Contact> getContactlist(){
         return contactlist;
     }
 
     public static void main(String[] args) {
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook=new AddressBook();
         addressBook.updateMainMethod();
     }
-
-    public void updateMainMethod() {
-        AddressBook addressBook = new AddressBook();
+    public void updateMainMethod(){
+        AddressBook addressBook=new AddressBook();
         // addressBook.addNewContactFromConsole();
         // addressBook=new AddressBook();
-        Contact contact = new Contact("Manu", "Kv", "Bengaluru", "Karnataka", 560076
-                , 966339366, "manukvshetty@gmail.com");
-        Contact contact1 = new Contact("Srinivas", "Kv", "Bengaluru", "Karnataka", 560076
-                , 526157122, "srinivas@gmail.com");
+        Contact contact= new Contact("Manu","Kv","Bengaluru","Karnataka",560076
+                ,966339366,"manukvshetty@gmail.com");
+        Contact contact1=new Contact("Srinivas","Kv","Bengaluru","Karnataka",560076
+                ,526157122,"srinivas@gmail.com");
         addressBook.addNewContact(contact);
         addressBook.addNewContact(contact1);
-        Scanner consoleInputReader = new Scanner(System.in);
+        Scanner consoleInputReader=new Scanner(System.in);
         System.out.println("Enter the FirstName of the contact to edit");
-        String firstName = consoleInputReader.next();
+        String firstName=consoleInputReader.next();
         System.out.println("Enter the LastName of the contact to edit");
-        String lastName = consoleInputReader.next();
-        Contact oldContact = addressBook.getContact(firstName, lastName);
-        if (oldContact == null) {
+        String lastName=consoleInputReader.next();
+        Contact oldContact=addressBook.getContact(firstName,lastName);
+        if(oldContact==null) {
             System.out.println("contact doesn't exist");
             return;
         }
-        Contact newContact = new Contact(consoleInputReader);
-        addressBook.updateContact(oldContact, newContact);
+        Contact newContact =new Contact(consoleInputReader);
+        addressBook.updateContact(oldContact,newContact);
     }
 
     /*This method is used to take input form console and add new contact to AddressBook
     @return boolen value
      */
-    public static boolean addNewContactFromConsole() {
-        Scanner consoleInputReader = new Scanner(System.in);
+    public static boolean addNewContactFromConsole(){
+        Scanner consoleInputReader=new Scanner(System.in);
         contactlist.add(new Contact(consoleInputReader));
         return true;
     }
@@ -100,7 +88,9 @@ public class AddressBook {
                         return true;
                     }
                 }
-            } else {
+            }
+            else
+            {
                 System.out.println("name not available to edit");
                 return false;
             }
@@ -114,7 +104,7 @@ public class AddressBook {
     @return boolean value true if present else false
      */
     public boolean checkContactExists(Contact contact) {
-        if (contactlist.size() > 0 && contact != null) {
+        if (contactlist.size() > 0 && contact!=null) {
             int i = 0;
             while (i < contactlist.size()) {
                 Contact contactPresent = contactlist.get(i);
@@ -148,7 +138,7 @@ public class AddressBook {
             int i = 0;
             while (i < contactlist.size()) {
                 Contact contactPresent = contactlist.get(i);
-                if ((firstName + lastName).equals(contactPresent.firstName + contactPresent.lastName)) {
+                if ((firstName+lastName).equals(contactPresent.firstName+contactPresent.lastName)) {
                     System.out.println("Contact Exists");
                     return contactPresent;
                 }
@@ -178,7 +168,7 @@ public class AddressBook {
             int i = 0;
             while (i < contactlist.size()) {
                 Contact contactPresent = contactlist.get(i);
-                if ((firstName + lastName).equals(contactPresent.firstName + contactPresent.lastName)) {
+                if ((firstName+lastName).equals(contactPresent.firstName+contactPresent.lastName)) {
                     contactlist.remove(i);
                     return true;
                 }
@@ -187,6 +177,31 @@ public class AddressBook {
             return false;
         }
         return false;
+    }
+
+    /* This method is used to add multiple contacts
+    @param takes array of contacts
+    @return number of contacts added
+    */
+    public int addMultipleContacts(Contact[] contactsArray) {
+        int contactsAdded=0;
+        if(contactsArray.length>0){
+            int i=0;
+            while(i<contactsArray.length){
+                boolean checkadded=this.addNewContact(contactsArray[i]);
+                if(checkadded==true)
+                    contactsAdded++;
+                i++;
+            }
+        }
+        return contactsAdded;
+    }
+
+    /* This method is used to get size of AddessBook
+    return size of contactList
+     */
+    public int getSizeOfAddressBook(){
+        return contactlist.size();
     }
 
 }
